@@ -1,10 +1,33 @@
 <!doctype html>
-<html lang="ja" style="font-size:62.5%">
+<html lang="ja">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MRAG Widget Demo</title>
     <link rel="stylesheet" href="style.css" />
+    <!-- Giả lập trang j-port.co.jp (MRAG-1914): cỡ chữ gốc co theo độ rộng cửa sổ.
+         Thêm ?fs=off vào URL để tắt giả lập và so sánh. -->
+    <style id="jport-sim">
+        @media screen and (max-width: 1480px) {
+            html { font-size: 0.6578947368vw; }
+        }
+    </style>
+    <script>
+        if (/[?&]fs=off/.test(location.search)) {
+            document.getElementById("jport-sim").remove();
+        }
+        addEventListener("DOMContentLoaded", function () {
+            var b = document.createElement("div");
+            b.style.cssText = "position:fixed;left:8px;bottom:8px;z-index:2147483647;background:#111;color:#fff;font:12px/1.4 monospace;padding:4px 8px;border-radius:4px";
+            var u = function () {
+                b.textContent = "html font-size: " +
+                    getComputedStyle(document.documentElement).fontSize +
+                    " | width: " + innerWidth + "px";
+            };
+            u(); addEventListener("resize", u);
+            document.body.appendChild(b);
+        });
+    </script>
 </head>
 <body>
     <header class="site-header">
